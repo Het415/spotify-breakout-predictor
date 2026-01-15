@@ -35,11 +35,11 @@ tab1, tab2, tab3 = st.tabs(["Virality Map", "Feature Importance", "Correlations"
 with tab1:
     # Convert breakout to string for better discrete coloring in the plot
 
-df['is_breakout'] = df['is_breakout'].astype(str)
+    df['is_breakout'] = df['is_breakout'].astype(str)
 
 
 
-fig = px.scatter(df, x='Spotify Popularity', y='Virality_Ratio', 
+    fig = px.scatter(df, x='Spotify Popularity', y='Virality_Ratio', 
 
                  color='is_breakout', hover_name='Track',
 
@@ -47,22 +47,6 @@ fig = px.scatter(df, x='Spotify Popularity', y='Virality_Ratio',
 
                  color_discrete_map={'0': 'blue', '1': 'red'})
 
-
-    df['is_breakout'] = df['is_breakout'].astype(str)
-
-    # Create the updated scatter plot
-    fig = px.scatter(
-        df, 
-        x='Spotify Popularity', 
-        y='Virality_Ratio', 
-        color='is_breakout', 
-        hover_name='Track',
-        log_y=True, 
-        title="TikTok Virality vs. Spotify Popularity",
-        color_discrete_map={'0': 'blue', '1': 'red'} # Red for Breakouts!
-    )
-    # ------------------------------
-    
     st.plotly_chart(fig, use_container_width=True)
 with tab2:
     # (Static image or pre-calculated importance)
