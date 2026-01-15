@@ -55,10 +55,46 @@ with tab1:
         )
         st.plotly_chart(fig, use_container_width=True)
 with tab2:
-    # (Static image or pre-calculated importance)
-    st.write("TikTok engagement is the #1 predictor of breakout success.")
-    #st.image('feature_importance.png') # You can save your plot as a PNG in Colab
-
+    st.write("### What Drives a Breakout?")
+    st.write("Our Random Forest model identified these as the strongest signals for predicting a breakout artist.")
+    
+    # These values come from your model's feature_importances_ results
+    importance_data = pd.DataFrame({
+        'Signal': ['TikTok Views', 'TikTok Likes', 'TikTok Posts', 'Spotify Playlist Reach', 'Shazam Counts'],
+        'Importance': [0.42, 0.23, 0.11, 0.08, 0.02] 
+    })
+    
+    fig_imp = px.bar(
+        importance_data, 
+        x='Importance', 
+        y='Signal', 
+        orientation='h',
+        color='Importance',
+        color_continuous_scale='Viridis'
+    )
+    
+    st.plotly_chart(fig_imp, use_container_width=True)
+with tab3:
+    st.write("### Platform Correlation Heatmap")
+    st.write("This heatmap shows how different platform signals relate to one another.")
+    
+    # 1. Select the numeric columns for correlation
+    corr_cols = ['Spotify Streams', 'Spotify Popularity', 'TikTok Views', 
+                 'Shazam Counts', 'YouTube Views', 'Stream_Velocity', 'Track Score']
+    
+    # 2. Calculate correlation matrix
+    corr_matrix = df[corr_cols].corr()
+    
+    # 3. Create an interactive heatmap using Plotly
+    fig_corr = px.imshow(
+        corr_matrix, 
+        text_auto=".2f", 
+        color_continuous_scale='RdBu_r',
+        aspect="auto",
+        title="Relationship Between Music Platforms"
+    )
+    
+    st.plotly_chart(fig_corr, use_container_width=True)
 # 6. The Watchlist (The "Product")
 st.header(f"🚀 Top {top_n} Predicted Breakout Artists")
 watchlist = df[df['Spotify Popularity'] <= min_popularity]
