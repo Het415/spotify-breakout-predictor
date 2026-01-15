@@ -57,7 +57,7 @@ with tab1:
 with tab2:
     # (Static image or pre-calculated importance)
     st.write("TikTok engagement is the #1 predictor of breakout success.")
-    st.image('feature_importance.png') # You can save your plot as a PNG in Colab
+    #st.image('feature_importance.png') # You can save your plot as a PNG in Colab
 
 # 6. The Watchlist (The "Product")
 st.header(f"🚀 Top {top_n} Predicted Breakout Artists")
